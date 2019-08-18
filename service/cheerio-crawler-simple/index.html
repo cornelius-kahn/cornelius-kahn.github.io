@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>简单的cheerio爬虫实现 | Corny &#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Node.js爬虫">
+  
+  
+  
+  
+  <meta name="description" content="此程序仅仅是读取单个页面的HTML文档，抓取HTML文档中标签的内容，用法和JQuery类似。">
+<meta name="keywords" content="Node.js,爬虫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单的cheerio爬虫实现">
+<meta property="og:url" content="https://blog.cony.dev/service/cheerio-crawler-simple/index.html">
+<meta property="og:site_name" content="Corny &#39;s Blog">
+<meta property="og:description" content="此程序仅仅是读取单个页面的HTML文档，抓取HTML文档中标签的内容，用法和JQuery类似。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-18T05:54:12.704Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="简单的cheerio爬虫实现">
+<meta name="twitter:description" content="此程序仅仅是读取单个页面的HTML文档，抓取HTML文档中标签的内容，用法和JQuery类似。">
+  
+    <link rel="alternate" href="/atom.xml" title="Corny &#39;s Blog" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/fashion.css">
+  <link rel="stylesheet" href="/css/glyphs.css">
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" rel="home">
+                <img style="margin-bottom: 10px;" width="70px" height="70px" alt="Hike News" src=" /css/images/logo.jpg">
+              </a>
+            
+              <a href="/" title="Corny &#39;s Blog" rel="home"> Corny &#39;s Blog </a>
+          </h1>
+
+          
+            <div class="site-description">The road ahead will be long and our climb will be steep.</div>
+          
+
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows" style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/">Home</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/archives">Archives</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/about">About</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-cheerio-crawler-simple" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      简单的cheerio爬虫实现
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/service/cheerio-crawler-simple/" class="article-date">
+	  <time datetime="2016-06-20T13:42:11.000Z" itemprop="datePublished">June 20, 2016</time>
+	</a>
+
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/service/">service</a>
+ 
+      
+	<span id="busuanzi_container_page_pv">
+		PV of this Page<span id="busuanzi_value_page_pv"></span>
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>此程序仅仅是读取单个页面的HTML文档，抓取HTML文档中标签的内容，用法和JQuery类似。<br><a id="more"></a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;;</span><br><span class="line">const fs= require(&quot;fs&quot;);</span><br><span class="line">const cheerio = require(&apos;cheerio&apos;);</span><br><span class="line"></span><br><span class="line">function analysis(filename) &#123;</span><br><span class="line"></span><br><span class="line">    let html = fs.readFileSync(filename, &apos;utf8&apos;);</span><br><span class="line">    let getHandleText = html.match(/&lt;!--enpproperty.*?--&gt;/g).toString();</span><br><span class="line">    let stringStart = getHandleText.indexOf(&apos;&lt;article&apos;);</span><br><span class="line">    let stringEnd = getHandleText.indexOf(&apos;/enpproperty--&gt;&apos;);</span><br><span class="line">    getHandleText = &quot;&lt;div&gt;&quot; + getHandleText.substring(stringStart, stringEnd) + &quot;&lt;/div&gt;&quot;;</span><br><span class="line"></span><br><span class="line">    let $ = cheerio.load(getHandleText);</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">        articleId: $(&apos;articleid&apos;).text(),</span><br><span class="line">        title: $(&apos;title&apos;).text(),</span><br><span class="line">        date: $(&apos;date&apos;).text(),</span><br><span class="line">        author: $(&apos;author&apos;).text(),</span><br><span class="line">        keyword: $(&apos;keyword&apos;).text(),</span><br><span class="line">        nodeId: $(&apos;nodeid&apos;).text(),</span><br><span class="line">        nodeName: $(&apos;nodename&apos;).text()</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(analysis(&apos;content_20622457.htm&apos;));</span><br></pre></td></tr></table></figure>
+<p>具体请参考cheerio官方文档<a href="https://www.npmjs.com/package/cheerio" target="_blank" rel="noopener">https://www.npmjs.com/package/cheerio</a></p>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/service/">service</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫/">爬虫</a></li></ul>
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/Others/thinkpad-t440p-entity-touchpad-driver/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          ThinkPad T440p更换实体三键触摸板驱动处理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/Linux/ubuntu-rsync/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Ubuntu搭建rsync服务器</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav">None</ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+        Copyright &copy; 2019 Corny &#39;s Blog, All Rights Reserved.
+      </div>
+      <div class="site-credit">
+        
+          <span id="busuanzi_container_site_uv">
+            UV: <span id="busuanzi_value_site_uv"></span>,
+            PV: <span id="busuanzi_value_site_pv"></span>.
+          </span>
+        
+        Powered by <a href="https://pages.github.com" target="_blank">GitHub Pages</a> & <a href="https://hexo.io" target="_blank">Hexo</a>.
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+
+</script>
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

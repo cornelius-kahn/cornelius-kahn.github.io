@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Ubuntu下多环境多服务器并存解决方案 | Corny &#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="需求： 在同一服务器上部署php、Python、Java服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu下多环境多服务器并存解决方案">
+<meta property="og:url" content="https://blog.cony.dev/Linux/ubuntu-build-server/index.html">
+<meta property="og:site_name" content="Corny &#39;s Blog">
+<meta property="og:description" content="需求： 在同一服务器上部署php、Python、Java服务器">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-18T05:54:12.718Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu下多环境多服务器并存解决方案">
+<meta name="twitter:description" content="需求： 在同一服务器上部署php、Python、Java服务器">
+  
+    <link rel="alternate" href="/atom.xml" title="Corny &#39;s Blog" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/fashion.css">
+  <link rel="stylesheet" href="/css/glyphs.css">
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" rel="home">
+                <img style="margin-bottom: 10px;" width="70px" height="70px" alt="Hike News" src=" /css/images/logo.jpg">
+              </a>
+            
+              <a href="/" title="Corny &#39;s Blog" rel="home"> Corny &#39;s Blog </a>
+          </h1>
+
+          
+            <div class="site-description">The road ahead will be long and our climb will be steep.</div>
+          
+
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows" style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/">Home</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/archives">Archives</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/about">About</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ubuntu-build-server" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      Ubuntu下多环境多服务器并存解决方案
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/Linux/ubuntu-build-server/" class="article-date">
+	  <time datetime="2016-03-30T01:27:47.000Z" itemprop="datePublished">March 30, 2016</time>
+	</a>
+
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+ 
+      
+	<span id="busuanzi_container_page_pv">
+		PV of this Page<span id="busuanzi_value_page_pv"></span>
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>需求：</p>
+<p>在同一服务器上部署php、Python、Java服务器<br><a id="more"></a><br>方案：</p>
+<p>使用Tengine或者Nginx处理php</p>
+<p>Apache (mod_wsgi)处理Python(Flask)</p>
+<p>Tomcat处理Java</p>
+<p>Tengine/Nginx使用80端口</p>
+<p>Apache使用6060端口</p>
+<p>Tomcat使用8080端口</p>
+<p>Apache/Tomcat非80端口访问问题均可使用Nginx代理访问解决。</p>
+<p>测试环境：</p>
+<p>Ubuntu 14.04 LTS x64（仅使用了官方软件源）</p>
+<p>解决过程：</p>
+<p>编译安装Tengine：</p>
+<p>处理编译依赖（安装gcc以及make）：</p>
+<p><code>sudo apt-get install gcc make</code></p>
+<p>处理Tengine依赖：</p>
+<p><code>sudo apt-get install libpcre++-dev libssl-dev zlib1g-dev</code></p>
+<p>编译：</p>
+<p><code>./configure --prefix=/usr/local/tengine &amp;&amp; make &amp;&amp; make install</code></p>
+<p>使用apt源安装php：</p>
+<p><code>sudo apt-get install php5-cli php5-fpm</code></p>
+<p>使用apt源安装Nginx：</p>
+<p><code>sudo apt-get install nginx</code></p>
+<p>配置Nginx处理php：</p>
+<p><code>sudo vim /etc/nginx/sites-available/default</code></p>
+<p>将</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root /usr/share/nginx/html;</span><br><span class="line">index index.html index.htm;</span><br></pre></td></tr></table></figure>
+<p>修改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root /data/wwwroot/php;</span><br><span class="line">index index.html index.htm index.php;</span><br></pre></td></tr></table></figure>
+<p>将</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#location ~ .php$ &#123;</span><br><span class="line">        #       fastcgi_split_path_info ^(.+.php)(/.+)$;</span><br><span class="line">        #       # NOTE: You should have &quot;cgi.fix_pathinfo = 0;&quot; in php.ini</span><br><span class="line">        #</span><br><span class="line">        #       # With php5-cgi alone:</span><br><span class="line">        #       fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">        #       # With php5-fpm:</span><br><span class="line">        #       fastcgi_pass unix:/var/run/php5-fpm.sock;</span><br><span class="line">        #       fastcgi_index index.php;</span><br><span class="line">        #       include fastcgi_params;</span><br><span class="line">        #&#125;</span><br></pre></td></tr></table></figure>
+<p>修改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">location ~ .php$ &#123;</span><br><span class="line">                fastcgi_split_path_info ^(.+.php)(/.+)$;</span><br><span class="line">        #       # NOTE: You should have &quot;cgi.fix_pathinfo = 0;&quot; in php.ini</span><br><span class="line">        #</span><br><span class="line">        #       # With php5-cgi alone:</span><br><span class="line">        #       fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">        #       # With php5-fpm:</span><br><span class="line">                fastcgi_pass unix:/var/run/php5-fpm.sock;</span><br><span class="line">                fastcgi_index index.php;</span><br><span class="line">                include fastcgi_params;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>重启Nginx</p>
+<p><code>sudo /etc/init.d/nginx restart</code></p>
+<p>使用apt源安装Apache (mod_wsgi)：</p>
+<p><code>sudo apt-get install apache2 libapache2-mod-wsgi</code></p>
+<p>配置Apache处理Python(Flask)：</p>
+<p>在Flask工程根目录下（假设为<code>/data/wwwroot/python/flaskdemo</code>）创建<code>flaskdemo_run.wsgi</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">activate_this = &apos;/data/wwwroot/python/flaskdemo/venv/bin/activate_this.py&apos;</span><br><span class="line">execfile(activate_this, dict(__file__=activate_this))</span><br><span class="line"></span><br><span class="line">from flaskdemo_run import app as application</span><br></pre></td></tr></table></figure>
+<p>修改Apache端口号为6060，避免默认80端口与Nginx发生冲突：</p>
+<p><code>sudo vim /etc/apache2/ports.conf</code></p>
+<p>将<code>Listen 80</code>修改为<code>Listen 6060</code></p>
+<p>配置Apache：</p>
+<p>将VirtualHost监听端口修改为6060并且修改应用目录：</p>
+<p><code>sudo vim /etc/apache2/sites-available/000-default.conf</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost *:6060&gt;</span><br><span class="line">    ...</span><br><span class="line">    DocumentRoot /data/wwwroot/python</span><br><span class="line">    ...</span><br><span class="line">&lt;/VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+<p>修改应用目录权限：</p>
+<p><code>sudo vim /etc/apache2/apache2.conf</code></p>
+<p>将</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">&lt;Directory /var/www/html/&gt;</span><br><span class="line">    Options Indexes FollowSymLinks</span><br><span class="line">    AllowOverride None</span><br><span class="line">    Require all granted</span><br><span class="line">&lt;/Directory&gt;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>修改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">&lt;Directory /data/wwwroot/python&gt;</span><br><span class="line">    Options Indexes FollowSymLinks</span><br><span class="line">    AllowOverride None</span><br><span class="line">    Require all granted</span><br><span class="line">&lt;/Directory&gt;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>配置Apache以处理Flask：</p>
+<p><code>sudo vim /etc/apache2/sites-available/000-default.conf</code></p>
+<p>在文件开头加入Flask项目路径：</p>
+<p><code>WSGIPythonPath /data/wwwroot/python/flaskdemo</code></p>
+<p>如果有多个Flask项目，路径用:隔开：</p>
+<p><code>WSGIPythonPath /data/wwwroot/python/flaskdemo:/data/wwwroot/python/flaskdemo2</code></p>
+<p>在VirtualHost里DocumentRoot的下方配置Flask wsgi解析，加入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost *:6060&gt;</span><br><span class="line">    ...</span><br><span class="line">    DocumentRoot /data/wwwroot/python</span><br><span class="line"></span><br><span class="line">    WSGIScriptAlias /flaskdemo /data/wwwroot/python/flaskdemo/flaskdemo_run.wsgi</span><br><span class="line">    &lt;Directory /data/wwwroot/python/flaskdemo&gt;</span><br><span class="line">        &lt;Files flaskdemo_run.wsgi&gt;</span><br><span class="line">            Order deny,allow</span><br><span class="line">            Allow from all</span><br><span class="line">        &lt;/Files&gt;</span><br><span class="line">    &lt;/Directory&gt;</span><br><span class="line">    ...</span><br><span class="line">&lt;/VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+<p>如有多个Flask项目，可以这样解析：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost *:6060&gt;</span><br><span class="line">    ...</span><br><span class="line">    DocumentRoot /data/wwwroot/python</span><br><span class="line"></span><br><span class="line">    WSGIScriptAlias /flaskdemo /data/wwwroot/python/flaskdemo/flaskdemo_run.wsgi</span><br><span class="line">    &lt;Directory /data/wwwroot/python/flaskdemo&gt;</span><br><span class="line">        &lt;Files flaskdemo_run.wsgi&gt;</span><br><span class="line">            Order deny,allow</span><br><span class="line">            Allow from all</span><br><span class="line">        &lt;/Files&gt;</span><br><span class="line">    &lt;/Directory&gt;</span><br><span class="line"></span><br><span class="line">    WSGIScriptAlias /flaskdemo2 /data/wwwroot/python/flaskdemo2/flaskdemo2_run.wsgi</span><br><span class="line">    &lt;Directory /data/wwwroot/python/flaskdemo2&gt;</span><br><span class="line">        &lt;Files flaskdemo2_run.wsgi&gt;</span><br><span class="line">            Order deny,allow</span><br><span class="line">            Allow from all</span><br><span class="line">        &lt;/Files&gt;</span><br><span class="line">    &lt;/Directory&gt;</span><br><span class="line">    ...</span><br><span class="line">&lt;/VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+<p>重启Apache</p>
+<p><code>sudo /etc/init.d/apache2 restart</code></p>
+<p>使用apt源安装Java：</p>
+<p><code>sudo apt-get install openjdk-7-jre</code></p>
+<p>使用apt源安装Tomcat：</p>
+<p><code>sudo apt-get install tomcat7</code></p>
+<p>配置Tomcat：</p>
+<p>修改webapps路径</p>
+<p><code>sudo vim /etc/tomcat7/server.xml</code></p>
+<p>将</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Host name=&quot;localhost&quot;  appBase=&quot;webapps&quot;</span><br><span class="line">      unpackWARs=&quot;true&quot; autoDeploy=&quot;true&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>修改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Host name=&quot;localhost&quot;  appBase=&quot;/data/wwwroot/java&quot;</span><br><span class="line">      unpackWARs=&quot;true&quot; autoDeploy=&quot;true&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>重启Tomcat</p>
+<p><code>sudo /etc/init.d/tomcat7 restart</code></p>
+<p>设置Tengine/Nginx反向代理：</p>
+<p>在<code>/etc/nginx/sites-enabled</code>目录下增加<code>demo.com</code>文件，写入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        server_name demo.com;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">                rewrite ^/(.*)$ /flaskdemo/$1 last;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location ~* ^/flaskdemo/.*$ &#123;</span><br><span class="line">                proxy_pass http://127.0.0.1:6060;</span><br><span class="line">                proxy_set_header Host $host;</span><br><span class="line">                proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>即可将域名代理到同一台服务器上的不同端口。</p>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+
+      
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/build-hexo/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          利用Github搭建Hexo博客
+        
+      </div>
+    </a>
+  
+  
+    <a href="/Front-end/javascript-print-object/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript打印Object</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav">None</ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+        Copyright &copy; 2019 Corny &#39;s Blog, All Rights Reserved.
+      </div>
+      <div class="site-credit">
+        
+          <span id="busuanzi_container_site_uv">
+            UV: <span id="busuanzi_value_site_uv"></span>,
+            PV: <span id="busuanzi_value_site_pv"></span>.
+          </span>
+        
+        Powered by <a href="https://pages.github.com" target="_blank">GitHub Pages</a> & <a href="https://hexo.io" target="_blank">Hexo</a>.
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+
+</script>
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

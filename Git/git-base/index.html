@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>git基础 | Corny &#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="首先，几个专用名词的译名如下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git基础">
+<meta property="og:url" content="https://blog.cony.dev/Git/git-base/index.html">
+<meta property="og:site_name" content="Corny &#39;s Blog">
+<meta property="og:description" content="首先，几个专用名词的译名如下：">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-18T05:54:12.708Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git基础">
+<meta name="twitter:description" content="首先，几个专用名词的译名如下：">
+  
+    <link rel="alternate" href="/atom.xml" title="Corny &#39;s Blog" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/fashion.css">
+  <link rel="stylesheet" href="/css/glyphs.css">
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" rel="home">
+                <img style="margin-bottom: 10px;" width="70px" height="70px" alt="Hike News" src=" /css/images/logo.jpg">
+              </a>
+            
+              <a href="/" title="Corny &#39;s Blog" rel="home"> Corny &#39;s Blog </a>
+          </h1>
+
+          
+            <div class="site-description">The road ahead will be long and our climb will be steep.</div>
+          
+
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows" style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/">Home</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/archives">Archives</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/about">About</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-git-base" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      git基础
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/Git/git-base/" class="article-date">
+	  <time datetime="2016-06-25T08:18:56.000Z" itemprop="datePublished">June 25, 2016</time>
+	</a>
+
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/Git/">Git</a>
+ 
+      
+	<span id="busuanzi_container_page_pv">
+		PV of this Page<span id="busuanzi_value_page_pv"></span>
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先，几个专用名词的译名如下：<br><a id="more"></a><br>Workspace：工作区<br>Index / Stage：暂存区<br>Repository：仓库区（或本地仓库）<br>Remote：远程仓库</p>
+<h3 id="新建代码库"><a href="#新建代码库" class="headerlink" title="新建代码库"></a>新建代码库</h3><p>在当前目录新建一个Git代码库</p>
+<p><code>git init</code></p>
+<p>新建一个目录，将其初始化为Git代码库</p>
+<p><code>git init [project-name]</code></p>
+<p>下载一个项目和它的整个代码历史</p>
+<p><code>git clone [url]</code></p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>Git的设置文件为 <code>.gitconfig</code> ，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。</p>
+<p>显示当前的Git配置</p>
+<p><code>git config --list</code></p>
+<p>编辑Git配置文件</p>
+<p><code>git config -e [--global]</code></p>
+<p>设置提交代码时的用户信息</p>
+<p><code>git config [--global] user.name &quot;[name]&quot;</code></p>
+<p><code>git config [--global] user.email &quot;[email address]&quot;</code></p>
+<h3 id="增加-删除文件"><a href="#增加-删除文件" class="headerlink" title="增加/删除文件"></a>增加/删除文件</h3><p>添加指定文件到暂存区</p>
+<p><code>git add [file1] [file2] ...</code></p>
+<p>添加指定目录到暂存区，包括子目录</p>
+<p><code>git add [dir]</code></p>
+<p>添加当前目录的所有文件到暂存区</p>
+<p><code>git add .</code></p>
+<p>删除工作区文件，并且将这次删除放入暂存区</p>
+<p><code>git rm [file1] [file2] ...</code></p>
+<p>停止追踪指定文件，但该文件会保留在工作区</p>
+<p><code>git rm --cached [file]</code></p>
+<p>改名文件，并且将这个改名放入暂存区</p>
+<p><code>git mv [file-original] [file-renamed]</code></p>
+<h3 id="代码提交"><a href="#代码提交" class="headerlink" title="代码提交"></a>代码提交</h3><p>提交暂存区到仓库区</p>
+<p><code>git commit -m [message]</code></p>
+<p>提交暂存区的指定文件到仓库区</p>
+<p><code>git commit [file1] [file2] ... -m [message]</code></p>
+<p>提交工作区自上次commit之后的变化，直接到仓库区</p>
+<p><code>git commit -a</code></p>
+<p>提交时显示所有diff信息</p>
+<p><code>git commit -v</code></p>
+<p>使用一次新的commit，替代上一次提交<br>如果代码没有任何新变化，则用来改写上一次commit的提交信息</p>
+<p><code>git commit --amend -m [message]</code></p>
+<p>重做上一次commit，并包括指定文件的新变化</p>
+<p><code>git commit --amend [file1] [file2] ...</code></p>
+<h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><p>列出所有本地分支</p>
+<p><code>git branch</code></p>
+<p>列出所有远程分支</p>
+<p><code>git branch -r</code></p>
+<p>列出所有本地分支和远程分支</p>
+<p><code>git branch -a</code></p>
+<p>新建一个分支，但依然停留在当前分支</p>
+<p><code>git branch [branch-name]</code></p>
+<p>新建一个分支，并切换到该分支</p>
+<p><code>git checkout -b [branch]</code></p>
+<p>新建一个分支，指向指定commit</p>
+<p><code>git branch [branch] [commit]</code></p>
+<p>新建一个分支，与指定的远程分支建立追踪关系</p>
+<p><code>git branch --track [branch] [remote-branch]</code></p>
+<p>切换到指定分支，并更新工作区</p>
+<p><code>git checkout [branch-name]</code></p>
+<p>建立追踪关系，在现有分支与指定的远程分支之间</p>
+<p><code>git branch --set-upstream [branch] [remote-branch]</code></p>
+<p>合并指定分支到当前分支</p>
+<p><code>git merge [branch]</code></p>
+<p>选择一个commit，合并进当前分支</p>
+<p><code>git cherry-pick [commit]</code></p>
+<p>删除分支</p>
+<p><code>git branch -d [branch-name]</code></p>
+<p>删除远程分支</p>
+<p><code>git push origin --delete [branch-name]</code></p>
+<p><code>git branch -dr [remote/branch]</code></p>
+<h3 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h3><p>列出所有tag</p>
+<p><code>git tag</code></p>
+<p>新建一个tag在当前commit</p>
+<p><code>git tag [tag]</code></p>
+<p>新建一个tag在指定commit</p>
+<p><code>git tag [tag] [commit]</code></p>
+<p>查看tag信息</p>
+<p><code>git show [tag]</code></p>
+<p>提交指定tag</p>
+<p><code>git push [remote] [tag]</code></p>
+<p>提交所有tag</p>
+<p><code>git push [remote] --tags</code></p>
+<p>新建一个分支，指向某个tag</p>
+<p><code>git checkout -b [branch] [tag]</code></p>
+<h3 id="查看信息"><a href="#查看信息" class="headerlink" title="查看信息"></a>查看信息</h3><p>显示有变更的文件</p>
+<p><code>git status</code></p>
+<p>显示当前分支的版本历史</p>
+<p><code>git log</code></p>
+<p>显示commit历史，以及每次commit发生变更的文件</p>
+<p><code>git log --stat</code></p>
+<p>显示某个文件的版本历史，包括文件改名</p>
+<p><code>git log --follow [file]</code></p>
+<p><code>git whatchanged [file]</code></p>
+<p>显示指定文件相关的每一次diff</p>
+<p><code>git log -p [file]</code></p>
+<p>显示指定文件是什么人在什么时间修改过</p>
+<p><code>git blame [file]</code></p>
+<p>显示暂存区和工作区的差异</p>
+<p><code>git diff</code></p>
+<p>显示暂存区和上一个commit的差异</p>
+<p><code>git diff --cached [file]</code></p>
+<p>显示工作区与当前分支最新commit之间的差异</p>
+<p><code>git diff HEAD</code></p>
+<p>显示两次提交之间的差异</p>
+<p><code>git diff [first-branch]...[second-branch]</code></p>
+<p>显示某次提交的元数据和内容变化</p>
+<p><code>git show [commit]</code></p>
+<p>显示某次提交发生变化的文件</p>
+<p><code>git show --name-only [commit]</code></p>
+<p>显示某次提交时，某个文件的内容</p>
+<p><code>git show [commit]:[filename]</code></p>
+<p>显示当前分支的最近几次提交</p>
+<p><code>git reflog</code></p>
+<h3 id="远程同步"><a href="#远程同步" class="headerlink" title="远程同步"></a>远程同步</h3><p>下载远程仓库的所有变动</p>
+<p><code>git fetch [remote]</code></p>
+<p>显示所有远程仓库</p>
+<p><code>git remote -v</code></p>
+<p>显示某个远程仓库的信息</p>
+<p><code>git remote show [remote]</code></p>
+<p>增加一个新的远程仓库，并命名</p>
+<p><code>git remote add [shortname] [url]</code></p>
+<p>取回远程仓库的变化，并与本地分支合并</p>
+<p><code>git pull [remote] [branch]</code></p>
+<p>上传本地指定分支到远程仓库</p>
+<p><code>git push [remote] [branch]</code></p>
+<p>强行推送当前分支到远程仓库，即使有冲突</p>
+<p><code>git push [remote] --force</code></p>
+<p>推送所有分支到远程仓库</p>
+<p><code>git push [remote] --all</code></p>
+<h3 id="撤销"><a href="#撤销" class="headerlink" title="撤销"></a>撤销</h3><p>恢复暂存区的指定文件到工作区</p>
+<p><code>git checkout [file]</code></p>
+<p>恢复某个commit的指定文件到工作区</p>
+<p><code>git checkout [commit] [file]</code></p>
+<p>恢复上一个commit的所有文件到工作区</p>
+<p><code>git checkout .</code></p>
+<p>重置暂存区的指定文件，与上一次commit保持一致，但工作区不变</p>
+<p><code>git reset [file]</code></p>
+<p>重置暂存区与工作区，与上一次commit保持一致</p>
+<p><code>git reset --hard</code></p>
+<p>重置当前分支的指针为指定commit，同时重置暂存区，但工作区不变</p>
+<p><code>git reset [commit]</code></p>
+<p>重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致</p>
+<p><code>git reset --hard [commit]</code></p>
+<p>重置当前HEAD为指定commit，但保持暂存区和工作区不变</p>
+<p><code>git reset --keep [commit]</code></p>
+<p>新建一个commit，用来撤销指定commit<br>后者的所有变化都将被前者抵消，并且应用到当前分支</p>
+<p><code>git revert [commit]</code></p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>生成一个可供发布的压缩包</p>
+<p><code>git archive</code></p>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/Git/">Git</a>
+
+      
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/Database/sql-to-mongodb/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SQL和MongoDB语法对照表
+        
+      </div>
+    </a>
+  
+  
+    <a href="/Linux/install-java-on-ubuntu-with-apt-get/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">使用apt-get包管理在Ubuntu上安装Java</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#新建代码库"><span class="nav-number">1.</span> <span class="nav-text">新建代码库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加-删除文件"><span class="nav-number">3.</span> <span class="nav-text">增加/删除文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码提交"><span class="nav-number">4.</span> <span class="nav-text">代码提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分支"><span class="nav-number">5.</span> <span class="nav-text">分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标签"><span class="nav-number">6.</span> <span class="nav-text">标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看信息"><span class="nav-number">7.</span> <span class="nav-text">查看信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程同步"><span class="nav-number">8.</span> <span class="nav-text">远程同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#撤销"><span class="nav-number">9.</span> <span class="nav-text">撤销</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">10.</span> <span class="nav-text">其他</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+        Copyright &copy; 2019 Corny &#39;s Blog, All Rights Reserved.
+      </div>
+      <div class="site-credit">
+        
+          <span id="busuanzi_container_site_uv">
+            UV: <span id="busuanzi_value_site_uv"></span>,
+            PV: <span id="busuanzi_value_site_pv"></span>.
+          </span>
+        
+        Powered by <a href="https://pages.github.com" target="_blank">GitHub Pages</a> & <a href="https://hexo.io" target="_blank">Hexo</a>.
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+
+</script>
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

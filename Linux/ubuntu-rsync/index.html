@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Ubuntu搭建rsync服务器 | Corny &#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="Ubuntu默认已经安装了rsync，但是它的服务默认是不启动的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu搭建rsync服务器">
+<meta property="og:url" content="https://blog.cony.dev/Linux/ubuntu-rsync/index.html">
+<meta property="og:site_name" content="Corny &#39;s Blog">
+<meta property="og:description" content="Ubuntu默认已经安装了rsync，但是它的服务默认是不启动的。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-18T05:54:12.719Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu搭建rsync服务器">
+<meta name="twitter:description" content="Ubuntu默认已经安装了rsync，但是它的服务默认是不启动的。">
+  
+    <link rel="alternate" href="/atom.xml" title="Corny &#39;s Blog" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/fashion.css">
+  <link rel="stylesheet" href="/css/glyphs.css">
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" rel="home">
+                <img style="margin-bottom: 10px;" width="70px" height="70px" alt="Hike News" src=" /css/images/logo.jpg">
+              </a>
+            
+              <a href="/" title="Corny &#39;s Blog" rel="home"> Corny &#39;s Blog </a>
+          </h1>
+
+          
+            <div class="site-description">The road ahead will be long and our climb will be steep.</div>
+          
+
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows" style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/">Home</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/archives">Archives</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/about">About</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ubuntu-rsync" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      Ubuntu搭建rsync服务器
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/Linux/ubuntu-rsync/" class="article-date">
+	  <time datetime="2016-06-20T05:55:57.000Z" itemprop="datePublished">June 20, 2016</time>
+	</a>
+
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+ 
+      
+	<span id="busuanzi_container_page_pv">
+		PV of this Page<span id="busuanzi_value_page_pv"></span>
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Ubuntu默认已经安装了rsync，但是它的服务默认是不启动的。<br><a id="more"></a><br>修改 <code>sudo vim /etc/default/rsync</code> ：</p>
+<p>找到</p>
+<p><code>RSYNC_ENABLE=false</code></p>
+<p>修改为</p>
+<p><code>RSYNC_ENABLE=true</code></p>
+<p>先创建配置文件：</p>
+<p><code>sudo cp /usr/share/doc/rsync/examples/rsyncd.conf /etc</code></p>
+<p>编辑配置文件：</p>
+<p><code>sudo vim /etc/rsyncd.conf</code></p>
+<p>去掉</p>
+<p><code>log file=/var/log/rsyncd</code></p>
+<p><code>pid file=/var/run/rsyncd.pid</code></p>
+<p><code>syslog facility=daemon</code></p>
+<p>前面的注释 <code>#</code></p>
+<p>修改rsync需要同步的路径：</p>
+<p><code>path = /var/www/pub</code> (修改成你需要同步的路径即可)</p>
+<p>修改rsync使其可读可写：</p>
+<p><code>read only = false</code></p>
+<p>修改rsync用户：</p>
+<p><code>auth users = rsync_user</code></p>
+<p><code>secrets file = /etc/rsyncd.secrets</code></p>
+<p>创建rsync用户密码文件：</p>
+<p><code>sudo touch /etc/rsyncd.secrets</code></p>
+<p>使其内容如下(例子)：<br><code>rsync_user:rsync_password</code></p>
+<p>修改用户密码文件权限：</p>
+<p><code>sudo chmod 0600 /etc/rsyncd.secrets</code></p>
+<p>启动rsync</p>
+<p><code>sudo /etc/init.d/rsync start</code></p>
+<p>客户端测试：</p>
+<p><code>rsync -avz local_filename server_username@server_ip:server_filename</code></p>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+
+      
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/service/cheerio-crawler-simple/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          简单的cheerio爬虫实现
+        
+      </div>
+    </a>
+  
+  
+    <a href="/macOS/macos-php-configure/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">macOS安装php开发环境</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav">None</ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+        Copyright &copy; 2019 Corny &#39;s Blog, All Rights Reserved.
+      </div>
+      <div class="site-credit">
+        
+          <span id="busuanzi_container_site_uv">
+            UV: <span id="busuanzi_value_site_uv"></span>,
+            PV: <span id="busuanzi_value_site_pv"></span>.
+          </span>
+        
+        Powered by <a href="https://pages.github.com" target="_blank">GitHub Pages</a> & <a href="https://hexo.io" target="_blank">Hexo</a>.
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+
+</script>
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

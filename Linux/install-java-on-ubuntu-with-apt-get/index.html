@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>使用apt-get包管理在Ubuntu上安装Java | Corny &#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="原文来自DigitalOcean：https://www.digitalocean.com/community/tutorials/how-to-install-java-on-ubuntu-with-apt-get 针对于Ubuntu 14.04LTS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用apt-get包管理在Ubuntu上安装Java">
+<meta property="og:url" content="https://blog.cony.dev/Linux/install-java-on-ubuntu-with-apt-get/index.html">
+<meta property="og:site_name" content="Corny &#39;s Blog">
+<meta property="og:description" content="原文来自DigitalOcean：https://www.digitalocean.com/community/tutorials/how-to-install-java-on-ubuntu-with-apt-get 针对于Ubuntu 14.04LTS">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-18T05:54:12.712Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用apt-get包管理在Ubuntu上安装Java">
+<meta name="twitter:description" content="原文来自DigitalOcean：https://www.digitalocean.com/community/tutorials/how-to-install-java-on-ubuntu-with-apt-get 针对于Ubuntu 14.04LTS">
+  
+    <link rel="alternate" href="/atom.xml" title="Corny &#39;s Blog" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/fashion.css">
+  <link rel="stylesheet" href="/css/glyphs.css">
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" rel="home">
+                <img style="margin-bottom: 10px;" width="70px" height="70px" alt="Hike News" src=" /css/images/logo.jpg">
+              </a>
+            
+              <a href="/" title="Corny &#39;s Blog" rel="home"> Corny &#39;s Blog </a>
+          </h1>
+
+          
+            <div class="site-description">The road ahead will be long and our climb will be steep.</div>
+          
+
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows" style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/">Home</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/archives">Archives</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/about">About</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-install-java-on-ubuntu-with-apt-get" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      使用apt-get包管理在Ubuntu上安装Java
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/Linux/install-java-on-ubuntu-with-apt-get/" class="article-date">
+	  <time datetime="2016-06-23T11:46:41.000Z" itemprop="datePublished">June 23, 2016</time>
+	</a>
+
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+ 
+      
+	<span id="busuanzi_container_page_pv">
+		PV of this Page<span id="busuanzi_value_page_pv"></span>
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原文来自DigitalOcean：<a href="https://www.digitalocean.com/community/tutorials/how-to-install-java-on-ubuntu-with-apt-get" target="_blank" rel="noopener">https://www.digitalocean.com/community/tutorials/how-to-install-java-on-ubuntu-with-apt-get</a></p>
+<p>针对于Ubuntu 14.04LTS<br><a id="more"></a></p>
+<h3 id="安装default-JRE-JDK"><a href="#安装default-JRE-JDK" class="headerlink" title="安装default JRE/JDK"></a>安装default JRE/JDK</h3><p>安装JRE：<code>sudo apt-get install default-jre</code></p>
+<p>安装JDK：<code>sudo apt-get install default-jdk</code></p>
+<h3 id="安装OpenJDK-7"><a href="#安装OpenJDK-7" class="headerlink" title="安装OpenJDK 7"></a>安装OpenJDK 7</h3><p>安装JRE：<code>sudo apt-get install openjdk-7-jre</code></p>
+<p>安装JDK：<code>sudo apt-get install openjdk-7-jdk</code></p>
+<h3 id="安装Oracle-JDK"><a href="#安装Oracle-JDK" class="headerlink" title="安装Oracle JDK"></a>安装Oracle JDK</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-software-properties</span><br><span class="line">sudo add-apt-repository ppa:webupd8team/java</span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<p>Oracle JDK 6: <code>sudo apt-get install oracle-java6-installer</code></p>
+<p>Oracle JDK 7: <code>sudo apt-get install oracle-java7-installer</code></p>
+<p>Oracle JDK 8: <code>sudo apt-get install oracle-java8-installer</code></p>
+<h3 id="管理Java版本"><a href="#管理Java版本" class="headerlink" title="管理Java版本"></a>管理Java版本</h3><p><code>sudo update-alternatives --config java</code></p>
+<p>会看见如下的命令显示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">There are 2 choices for the alternative java (providing /usr/bin/java).</span><br><span class="line"></span><br><span class="line">Selection    Path                                            Priority   Status</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">* 0            /usr/lib/jvm/java-7-oracle/jre/bin/java          1062      auto mode</span><br><span class="line">  1            /usr/lib/jvm/java-6-openjdk-amd64/jre/bin/java   1061      manual mode</span><br><span class="line">  2            /usr/lib/jvm/java-7-oracle/jre/bin/java          1062      manual mode</span><br><span class="line"></span><br><span class="line">Press enter to keep the current choice[*], or type selection number:</span><br></pre></td></tr></table></figure>
+<p>你可以输入版本的数字去选择默认的Java版本。</p>
+<p>针对于javac命令是一样的：</p>
+<p><code>sudo update-alternatives --config javac</code></p>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+
+      
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/Git/git-base/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          git基础
+        
+      </div>
+    </a>
+  
+  
+    <a href="/others/colorful-terminal-in-macos/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">修改macOS终端配色</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装default-JRE-JDK"><span class="nav-number">1.</span> <span class="nav-text">安装default JRE/JDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装OpenJDK-7"><span class="nav-number">2.</span> <span class="nav-text">安装OpenJDK 7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Oracle-JDK"><span class="nav-number">3.</span> <span class="nav-text">安装Oracle JDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理Java版本"><span class="nav-number">4.</span> <span class="nav-text">管理Java版本</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+        Copyright &copy; 2019 Corny &#39;s Blog, All Rights Reserved.
+      </div>
+      <div class="site-credit">
+        
+          <span id="busuanzi_container_site_uv">
+            UV: <span id="busuanzi_value_site_uv"></span>,
+            PV: <span id="busuanzi_value_site_pv"></span>.
+          </span>
+        
+        Powered by <a href="https://pages.github.com" target="_blank">GitHub Pages</a> & <a href="https://hexo.io" target="_blank">Hexo</a>.
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+
+</script>
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

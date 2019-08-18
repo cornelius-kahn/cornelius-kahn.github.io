@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>ThinkPad T440p更换实体三键触摸板驱动处理 | Corny &#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="ThinkPad T440p更换实体三键触摸板是使用ThinkPad T450的实体三键触摸板来替换原有一体式触摸板。因此触摸板驱动可以从Lenovo官网下载T450的驱动然后进行修改使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ThinkPad T440p更换实体三键触摸板驱动处理">
+<meta property="og:url" content="https://blog.cony.dev/Others/thinkpad-t440p-entity-touchpad-driver/index.html">
+<meta property="og:site_name" content="Corny &#39;s Blog">
+<meta property="og:description" content="ThinkPad T440p更换实体三键触摸板是使用ThinkPad T450的实体三键触摸板来替换原有一体式触摸板。因此触摸板驱动可以从Lenovo官网下载T450的驱动然后进行修改使用。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-18T05:54:12.717Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ThinkPad T440p更换实体三键触摸板驱动处理">
+<meta name="twitter:description" content="ThinkPad T440p更换实体三键触摸板是使用ThinkPad T450的实体三键触摸板来替换原有一体式触摸板。因此触摸板驱动可以从Lenovo官网下载T450的驱动然后进行修改使用。">
+  
+    <link rel="alternate" href="/atom.xml" title="Corny &#39;s Blog" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/fashion.css">
+  <link rel="stylesheet" href="/css/glyphs.css">
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" rel="home">
+                <img style="margin-bottom: 10px;" width="70px" height="70px" alt="Hike News" src=" /css/images/logo.jpg">
+              </a>
+            
+              <a href="/" title="Corny &#39;s Blog" rel="home"> Corny &#39;s Blog </a>
+          </h1>
+
+          
+            <div class="site-description">The road ahead will be long and our climb will be steep.</div>
+          
+
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows" style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/">Home</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/archives">Archives</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/about">About</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-thinkpad-t440p-entity-touchpad-driver" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      ThinkPad T440p更换实体三键触摸板驱动处理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/Others/thinkpad-t440p-entity-touchpad-driver/" class="article-date">
+	  <time datetime="2016-06-23T02:15:35.000Z" itemprop="datePublished">June 23, 2016</time>
+	</a>
+
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/Others/">Others</a>
+ 
+      
+	<span id="busuanzi_container_page_pv">
+		PV of this Page<span id="busuanzi_value_page_pv"></span>
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ThinkPad T440p更换实体三键触摸板是使用ThinkPad T450的实体三键触摸板来替换原有一体式触摸板。因此触摸板驱动可以从Lenovo官网下载T450的驱动然后进行修改使用。<br><a id="more"></a><br>修改Windows驱动方式如下：</p>
+<p>下载T450最新款的触摸板驱动，打开后不要安装，会解压到一个文件下，然后默认在 <code>C:\DRIVERS\WIN\UltraNav\WinWDF\x64</code> 路径，在这里找到<code>SynPD.inf</code>文件，用记事本打开，把里面的这三条删掉</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%SMB.IBMDeviceDesc% = LENOVO_GROUP36_InterTouch_Inst,ACPI\LEN0036</span><br><span class="line">%SMB.IBMDeviceDesc% = LENOVO_GROUP36_InterTouch_Win8_Inst,ACPI\LEN0036</span><br><span class="line">%SMB.IBMDeviceDesc% = LENOVO_GROUP36_InterTouch_Win8_Inst,ACPI\LEN0036</span><br></pre></td></tr></table></figure>
+<p>然后把</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%SMB.IBMDeviceDesc% = LENOVO_GROUP41_InterTouch_Inst,ACPI\LEN200E</span><br><span class="line">%SMB.IBMDeviceDesc% = LENOVO_GROUP41_InterTouch_Win8_Inst,ACPI\LEN200E</span><br><span class="line">%SMB.IBMDeviceDesc% = LENOVO_GROUP41_InterTouch_Win8_Inst,ACPI\LEN200E</span><br></pre></td></tr></table></figure>
+<p>中的 <code>LEN200E</code> 换成 <code>LEN0036</code></p>
+<p>即</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%SMB.IBMDeviceDesc% = LENOVO_GROUP41_InterTouch_Inst,ACPI\LEN0036</span><br><span class="line">%SMB.IBMDeviceDesc% = LENOVO_GROUP41_InterTouch_Win8_Inst,ACPI\LEN0036</span><br><span class="line">%SMB.IBMDeviceDesc% = LENOVO_GROUP41_InterTouch_Win8_Inst,ACPI\LEN0036</span><br></pre></td></tr></table></figure>
+<p>保存后，重启电脑进入到禁用签名模式安装此驱动，注意要把触摸板的驱动禁止系统自动更新，防止以后更新后无效了。</p>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/Others/">Others</a>
+
+      
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/service/php-function/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          学习php需要掌握的函数
+        
+      </div>
+    </a>
+  
+  
+    <a href="/service/cheerio-crawler-simple/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">简单的cheerio爬虫实现</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav">None</ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+        Copyright &copy; 2019 Corny &#39;s Blog, All Rights Reserved.
+      </div>
+      <div class="site-credit">
+        
+          <span id="busuanzi_container_site_uv">
+            UV: <span id="busuanzi_value_site_uv"></span>,
+            PV: <span id="busuanzi_value_site_pv"></span>.
+          </span>
+        
+        Powered by <a href="https://pages.github.com" target="_blank">GitHub Pages</a> & <a href="https://hexo.io" target="_blank">Hexo</a>.
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+
+</script>
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>
